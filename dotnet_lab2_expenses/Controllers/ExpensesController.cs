@@ -27,7 +27,7 @@ namespace dotnet_lab2_expenses.Controllers
             [FromQuery] DateTime? to = null,
             [FromQuery] string type = null)
         {
-            IEnumerable<ExpenseItem> expenseItems = await _context.ExpenseItem.ToListAsync().ConfigureAwait(false);
+            IEnumerable<ExpenseItem> expenseItems = await _context.ExpenseItem.Include(ei => ei.Comments).ToListAsync();
 
             if (from != null)
             {
@@ -51,7 +51,7 @@ namespace dotnet_lab2_expenses.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ExpenseItem>> GetExpenseItem(long id)
         {
-            var expenseItem = await _context.ExpenseItem.FindAsync(id);
+            var expenseItem = await _context.ExpenseItem.Include(e => e.Comments).SingleOrDefaultAsync(e => e.Id == id);
 
             if (expenseItem == null)
             {
@@ -60,6 +60,7 @@ namespace dotnet_lab2_expenses.Controllers
 
             return expenseItem;
         }
+        
 
         // PUT: api/Expenses/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
@@ -105,6 +106,49 @@ namespace dotnet_lab2_expenses.Controllers
             return CreatedAtAction("GetExpenseItem", new { id = expenseItem.Id }, expenseItem);
         }
 
+        [HttpPost("{id}/comments")]
+        public async Task<ActionResult<Comment>> PostComment(long id, Comment comment)
+        {
+            _context.Comment.Add(comment);
+            await _context.SaveChangesAsync();
+
+            var UpdatedExpenseItem = await _context.ExpenseItem.FindAsync(id);
+
+            UpdatedExpenseItem.Comments.Add(comment);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPut("{id}/comments/{commentId}")]
+        public async Task<IActionResult> PutComment(long id, long commentId, Comment comment)
+        {
+            if (commentId != comment.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(comment).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ExpenseItemExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(comment);
+        }
+
         // DELETE: api/Expenses/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<ExpenseItem>> DeleteExpenseItem(long id)
@@ -119,6 +163,21 @@ namespace dotnet_lab2_expenses.Controllers
             await _context.SaveChangesAsync();
 
             return expenseItem;
+        }
+
+        [HttpDelete("{id}/comments/{commentId}")]
+        public async Task<ActionResult<Comment>> DeleteComment(long id, long commentId)
+        {
+            var comment = await _context.Comment.FindAsync(commentId);
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            _context.Comment.Remove(comment);
+            await _context.SaveChangesAsync();
+
+            return comment;
         }
 
         private bool ExpenseItemExists(long id)

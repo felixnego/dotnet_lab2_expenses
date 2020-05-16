@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace dotnet_lab2_expenses.Models
+namespace dotnet_lab2_expenses.Models   
 {
     public class ExpenseItemListViewConverter
     {
@@ -14,8 +14,9 @@ namespace dotnet_lab2_expenses.Models
                 Description = item.Description,
                 Sum = item.Sum,
                 Type = item.Type,
-                Date = item.Date
-            });
+                Date = item.Date,
+                Comments = CommentDtoConverter.ConvertCommentsToDto(item.Comments).ToList()
+            }); ; 
         }
     }
 }

@@ -30,6 +30,6 @@ namespace dotnet_lab2_expenses.Models
         [TypePropertyValidator]
         public string Type { get; set; }
 
-        public List<Comment> Comments { get; set; }
+        public List<Comment> Comments { get; set; } = new List<Comment>();
     }
 }

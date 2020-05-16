@@ -11,5 +11,6 @@ namespace dotnet_lab2_expenses.Models
         {
         }
         public DbSet<dotnet_lab2_expenses.Models.ExpenseItem> ExpenseItem { get; set; }
+        public DbSet<dotnet_lab2_expenses.Models.Comment> Comment { get; set; }
     }
 }
