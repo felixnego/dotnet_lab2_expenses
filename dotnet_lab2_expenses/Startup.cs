@@ -23,7 +23,7 @@ namespace dotnet_lab2_expenses
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ExpenseContext>(opt =>
-                opt.UseFileContextDatabase("Expenses"));
+                opt.UseMySql(Configuration.GetConnectionString("ExpenseAppDbConnectionString")));
             services.AddControllers();
         }
 
