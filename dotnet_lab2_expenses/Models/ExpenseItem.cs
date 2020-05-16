@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace dotnet_lab2_expenses.Models
@@ -28,5 +29,7 @@ namespace dotnet_lab2_expenses.Models
         [Required]
         [TypePropertyValidator]
         public string Type { get; set; }
+
+        public List<Comment> Comments { get; set; }
     }
 }
