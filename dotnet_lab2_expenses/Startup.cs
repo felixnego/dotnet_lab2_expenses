@@ -23,7 +23,7 @@ namespace dotnet_lab2_expenses
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ExpenseContext>(opt =>
-                opt.UseInMemoryDatabase("Expenses"));
+                opt.UseFileContextDatabase("Expenses"));
             services.AddControllers();
         }
 

@@ -22,9 +22,29 @@ namespace dotnet_lab2_expenses.Controllers
 
         // GET: api/Expenses
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ExpenseItem>>> GetExpenseItem()
+        public async Task<ActionResult<IEnumerable<ExpenseItemListView>>> GetExpenseItem(
+            [FromQuery] DateTime? from = null,
+            [FromQuery] DateTime? to = null,
+            [FromQuery] string type = null)
         {
-            return await _context.ExpenseItem.ToListAsync();
+            IEnumerable<ExpenseItem> expenseItems = await _context.ExpenseItem.ToListAsync().ConfigureAwait(false);
+
+            if (from != null)
+            {
+                expenseItems = expenseItems.Where(item => from <= item.Date);
+            }
+            if (to != null)
+            {
+                expenseItems = expenseItems.Where(item => item.Date <= to);
+            }
+            if (type != null)
+            {
+                expenseItems = expenseItems.Where(item => item.Type == type);
+            }
+            
+            var listView = ExpenseItemListViewConverter.ConvertToListView(expenseItems);
+            
+            return Ok(listView);
         }
 
         // GET: api/Expenses/5

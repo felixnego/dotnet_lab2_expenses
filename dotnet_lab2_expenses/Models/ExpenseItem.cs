@@ -9,24 +9,24 @@ namespace dotnet_lab2_expenses.Models
         public long Id { get; set; }
 
         [Required]
-        public string description { get; set; }
+        public string Description { get; set; }
 
         [Required]
         [DataType(DataType.Currency)]
-        public decimal sum { get; set; }
+        public decimal Sum { get; set; }
 
         [Required]
-        public string location { get; set; }
+        public string Location { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]
-        public DateTime date { get; set; }
+        public DateTime Date { get; set; }
 
         [Required]
-        public string currency { get; set; }
+        public string Currency { get; set; }
 
         [Required]
         [TypePropertyValidator]
-        public string type { get; set; }
+        public string Type { get; set; }
     }
 }
