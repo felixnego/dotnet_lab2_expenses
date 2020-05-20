@@ -6,7 +6,7 @@ namespace dotnet_lab2_expenses.ModelValidators
 {
     public class CommentValidator : AbstractValidator<Comment>
     {
-        public CommentValidator(ExpenseContext _context)
+        public CommentValidator()
         {
             RuleFor(x => x.Text).MinimumLength(3);
         }
