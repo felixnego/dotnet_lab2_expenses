@@ -21,6 +21,10 @@ namespace dotnet_lab2_expenses.Controllers
         }
 
         // GET: api/Expenses
+        /// <summary>
+        /// Get a list of all Expense Items in their DTO format.
+        /// In the list view, certain fields are excluded.
+        /// </summary>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ExpenseItemListView>>> GetExpenseItem(
             [FromQuery] DateTime? from = null,
@@ -48,6 +52,12 @@ namespace dotnet_lab2_expenses.Controllers
         }
 
         // GET: api/Expenses/5
+        /// <summary>
+        /// Get the details on one particular Expense Item.
+        /// In the details view, all fields are included.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>The Expense Item requested</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<ExpenseItem>> GetExpenseItem(long id)
         {
@@ -60,11 +70,15 @@ namespace dotnet_lab2_expenses.Controllers
 
             return expenseItem;
         }
-        
+
 
         // PUT: api/Expenses/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Update an Expense Item.
+        /// </summary>
+        /// <returns>The updated Expense Item</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutExpenseItem(long id, ExpenseItem expenseItem)
         {
@@ -97,6 +111,10 @@ namespace dotnet_lab2_expenses.Controllers
         // POST: api/Expenses
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Create a new Expense Item.
+        /// </summary>
+        /// <returns>The created Expense Item</returns>
         [HttpPost]
         public async Task<ActionResult<ExpenseItem>> PostExpenseItem(ExpenseItem expenseItem)
         {
@@ -106,6 +124,10 @@ namespace dotnet_lab2_expenses.Controllers
             return CreatedAtAction("GetExpenseItem", new { id = expenseItem.Id }, expenseItem);
         }
 
+        /// <summary>
+        /// Add a new Comment to a particular Expense Item.
+        /// </summary>
+        /// <returns>Ok if the operation performed successfully</returns>
         [HttpPost("{id}/comments")]
         public async Task<ActionResult<Comment>> PostComment(long id, Comment comment)
         {
@@ -120,6 +142,11 @@ namespace dotnet_lab2_expenses.Controllers
             return Ok();
         }
 
+
+        /// <summary>
+        /// Update an existing comment for a particular Expense Item.
+        /// </summary>
+        /// <returns>Ok if the operation performed successfully</returns>
         [HttpPut("{id}/comments/{commentId}")]
         public async Task<IActionResult> PutComment(long id, long commentId, Comment comment)
         {
@@ -150,6 +177,10 @@ namespace dotnet_lab2_expenses.Controllers
         }
 
         // DELETE: api/Expenses/5
+        /// <summary>
+        /// Deletes an Expense Item.
+        /// </summary>
+        /// <returns>The deleted Expense Item</returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult<ExpenseItem>> DeleteExpenseItem(long id)
         {
@@ -165,6 +196,10 @@ namespace dotnet_lab2_expenses.Controllers
             return expenseItem;
         }
 
+        /// <summary>
+        /// Deletes the comment associated with a particular Expense Item.
+        /// </summary>
+        /// <returns>The deleted comment</returns>
         [HttpDelete("{id}/comments/{commentId}")]
         public async Task<ActionResult<Comment>> DeleteComment(long id, long commentId)
         {
