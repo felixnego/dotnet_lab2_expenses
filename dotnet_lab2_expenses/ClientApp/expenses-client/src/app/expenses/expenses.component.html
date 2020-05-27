@@ -1,0 +1,26 @@
+<h1 id="tableLabel">Summary of your Expenses</h1>
+
+<p>Below, you can visualise a summary of your expenses.</p>
+
+<p *ngIf="!expenses"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="expenses">
+    <thead>
+        <tr>
+            <th>Sum</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Type</th>
+            <th>No. Of Comments</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let expense of expenses">
+            <td>{{ expense.sum }}</td>
+            <td>{{ expense.description }}</td>
+            <td>{{ expense.date }}</td>
+            <td>{{ expense.type }}</td>
+            <td>{{ expense.noComments }}</td>
+        </tr>
+    </tbody>
+</table>

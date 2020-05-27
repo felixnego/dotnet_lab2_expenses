@@ -16,5 +16,7 @@ namespace dotnet_lab2_expenses.Models
         public string Type { get; set; }
 
         public List<CommentDto> Comments { get; set; }
+
+        public int NoComments { get; set; }
     }
 }

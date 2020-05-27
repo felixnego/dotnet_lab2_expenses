@@ -15,7 +15,8 @@ namespace dotnet_lab2_expenses.Models
                 Sum = item.Sum,
                 Type = item.Type,
                 Date = item.Date,
-                Comments = CommentDtoConverter.ConvertCommentsToDto(item.Comments).ToList()
+                Comments = CommentDtoConverter.ConvertCommentsToDto(item.Comments).ToList(),
+                NoComments = item.Comments.Count
             }); ; 
         }
     }

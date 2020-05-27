@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using dotnet_lab2_expenses.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace dotnet_lab2_expenses.Controllers
 {
