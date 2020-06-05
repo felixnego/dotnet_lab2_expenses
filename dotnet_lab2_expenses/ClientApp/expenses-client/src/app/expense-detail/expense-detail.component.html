@@ -1,0 +1,55 @@
+<div *ngIf="currentExpense" class="container">
+    <div class="jumbotron">
+        <h1>{{ currentExpense.description }}</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <h4>Details</h4>
+            <h5>Sum: {{ currentExpense.sum }}</h5>
+            <h5>Currency: {{ currentExpense.currency }}</h5>
+            <h5>Bought on: {{ currentExpense.date }}</h5>
+            <h5>Expense Type: {{ currentExpense.type }}</h5>
+            <h5>Retailer: {{ currentExpense.location }}</h5>
+            <hr />
+            <h4>Add a new Comment:</h4>
+            <form #newCommentForm="ngForm">
+                <div class="form-group">
+                    <label for="text">Comment text</label>
+                    <input class="form-control" type="text" name="text" id="text" ngModel />
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="important" id="true" value="true" ngModel>
+                    <label class="form-check-label" for="true">Important</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="important" id="false" value="false" ngModel>
+                    <label class="form-check-label" for="false">Not Important</label>
+                </div>
+                <button class="btn btn-primary" (click)="addComment(newCommentForm)">Add Comment</button>
+            </form>
+        </div>
+
+        <div class="col-8">
+            <h4>Comments</h4>
+            <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="currentExpense.comments.length > 0">
+                <thead>
+                    <tr>
+                        <th>Text</th>
+                        <th>Important</th>
+                        <th>Operations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let comment of currentExpense.comments">
+                        <td>{{ comment.text }}</td>
+                        <td>{{ comment.important }}</td>
+                        <td><a class="btn btn-warning">Edit</a> <a class="btn btn-danger" (click)="deleteComment(comment.id)">Delete</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <h5 *ngIf="currentExpense.comments.length == 0">There are no comments left yet on this expense item.</h5>
+        </div>
+    </div>
+
+</div>

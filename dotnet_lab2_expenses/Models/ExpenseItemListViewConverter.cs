@@ -11,6 +11,7 @@ namespace dotnet_lab2_expenses.Models
         {
             return items.Select(item => new ExpenseItemListView
             {
+                Id = item.Id,
                 Description = item.Description,
                 Sum = item.Sum,
                 Type = item.Type,

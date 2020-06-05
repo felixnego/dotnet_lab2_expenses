@@ -6,6 +6,7 @@ namespace dotnet_lab2_expenses.Models
 {
     public class ExpenseItemListView
     {
+        public long Id { get; set; }
 
         public decimal Sum { get; set; }
 

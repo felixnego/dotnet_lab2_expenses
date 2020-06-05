@@ -1,0 +1,41 @@
+<div class="container">
+    <form [formGroup]="newExpenseForm">
+        <div class="form-group">
+            <label for="description">Expense Description</label>
+            <input type="text" class="form-control" id="description" name="description" aria-describedby="desclHelp" placeholder="Enter a short expense description" formControlName="description">
+            <small id="desclHelp" class="form-text text-muted">An expense description has 4 or more characters.</small>
+        </div>
+        <div class="form-group">
+            <label for="sum">Sum</label>
+            <input type="number" class="form-control" id="sum" name="sum" placeholder="Enter the sum" formControlName="sum">
+        </div>
+        <div class="form-group">
+            <label for="currency">Currency</label>
+            <input type="text" class="form-control" id="currency" name="currency" placeholder="Enter expense currency" formControlName="currency">
+        </div>
+        <div class="form-group">
+            <label for="location">Retailer</label>
+            <input type="text" class="form-control" id="location" name="location" aria-describedby="loclHelp" placeholder="Enter a retailer/location" formControlName="location">
+            <small id="loclHelp" class="form-text text-muted">An retailer or location name has 4 or more characters.</small>
+        </div>
+        <div class="form-group">
+            <label for="date">Date</label>
+            <input type="date" class="form-control" id="date" name="date" formControlName="date">
+        </div>
+        <div class="form-group">
+            <label for="type">Pick an Expense Category</label>
+            <select class="form-control" id="type" name="type" formControlName="type">
+                <option>food</option>
+                <option>utilities</option>
+                <option>transportation</option>
+                <option>outing</option>
+                <option>groceries</option>
+                <option>clothes</option>
+                <option>electronics</option>
+                <option>other</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success" (click)="addOrUpdateExpense()">Add Expense</button>
+        <button class="btn btn-danger" (click)="toggleHideForm()">Cancel</button>
+    </form>
+</div>

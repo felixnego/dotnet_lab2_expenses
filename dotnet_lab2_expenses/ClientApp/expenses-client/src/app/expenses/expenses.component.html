@@ -2,6 +2,24 @@
 
 <p>Below, you can visualise a summary of your expenses.</p>
 
+<div>
+    <form #validate="ngForm" (ngSubmit)="getExpenses(validate)">
+        Filter expenses by date:
+        <input type="datetime" name="from" placeholder="from" ngModel/>
+        <input type="datetime" name="to" placeholder="to" ngModel/>
+        <button type="submit" class="btn btn-primary btn">Filter</button>
+    </form>
+</div>
+<br />
+
+<div>
+    Click here to add a new expense report:
+    <button class="btn btn-primary" (click)="toggleAdd()">Add Expense</button>
+    <app-add-expense *ngIf="add" (onSubmit)="reloadData($event)" (toggleHide)="hideAddForm($event)"></app-add-expense>
+</div>
+
+<br />
+
 <p *ngIf="!expenses"><em>Loading...</em></p>
 
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="expenses">
@@ -12,6 +30,7 @@
             <th>Date</th>
             <th>Type</th>
             <th>No. Of Comments</th>
+            <th>Operations</th>
         </tr>
     </thead>
     <tbody>
@@ -21,6 +40,7 @@
             <td>{{ expense.date }}</td>
             <td>{{ expense.type }}</td>
             <td>{{ expense.noComments }}</td>
+            <td><a [routerLink]="['/expenses/', expense.id]" class="btn btn-success">Details</a> <a [routerLink]="['/expenses/', expense.id, 'edit']" class="btn btn-warning">Edit</a> <a class="btn btn-danger" (click)="deleteExpense(expense.id)">Delete</a></td>
         </tr>
     </tbody>
 </table>
