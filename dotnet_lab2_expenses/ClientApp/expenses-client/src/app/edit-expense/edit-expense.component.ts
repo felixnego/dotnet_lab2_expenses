@@ -16,6 +16,7 @@ export class EditExpenseComponent implements OnInit {
   public GET_DETAILS_URL = 'https://localhost:5001/api/expenses/';
   public currentExpense: ExpenseDetail;
   public editExpenseForm: FormGroup;
+  private errorMessages = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -44,7 +45,7 @@ export class EditExpenseComponent implements OnInit {
     const editedExpense = this.editExpenseForm.value as ExpenseDetail;
 
     this.http.put(this.GET_DETAILS_URL + this.expenseId, editedExpense)
-      .subscribe(_ => this.router.navigateByUrl('expenses'));
+      .subscribe(_ => this.router.navigateByUrl('expenses'), err => this.errorMessages = err.error.errors);
   }
 
   ngOnInit() {

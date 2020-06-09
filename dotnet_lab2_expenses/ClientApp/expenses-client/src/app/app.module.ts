@@ -11,6 +11,10 @@ import { ExpenseDetailComponent } from './expense-detail/expense-detail.componen
 import { AddExpenseComponent } from './add-expense/add-expense.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EditExpenseComponent } from './edit-expense/edit-expense.component';
+import { EditCommentComponent } from './edit-comment/edit-comment.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 @NgModule({
   declarations: [
@@ -20,10 +24,12 @@ import { EditExpenseComponent } from './edit-expense/edit-expense.component';
     ExpensesComponent,
     ExpenseDetailComponent,
     AddExpenseComponent,
-    EditExpenseComponent
+    EditExpenseComponent,
+    EditCommentComponent
   ],
   imports: [
     HttpClientModule,
+    MatDialogModule,
     ReactiveFormsModule,
     FormsModule,
     BrowserModule,
@@ -32,9 +38,11 @@ import { EditExpenseComponent } from './edit-expense/edit-expense.component';
       { path: 'expenses', component: ExpensesComponent },
       { path: 'expenses/:id', component: ExpenseDetailComponent },
       { path: 'expenses/:id/edit', component: EditExpenseComponent }
-    ], { onSameUrlNavigation: 'reload' })
+    ], { onSameUrlNavigation: 'reload' }),
+    BrowserAnimationsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [EditCommentComponent]
 })
 export class AppModule { }

@@ -11,6 +11,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class AddExpenseComponent implements OnInit {
 
   public POST_NEW_URL: string = 'https://localhost:5001/api/expenses';
+  private errorMessages = [];
 
   @Output() public onSubmit: EventEmitter<any> = new EventEmitter<any>();
   @Output() public toggleHide: EventEmitter<any> = new EventEmitter<any>();
@@ -33,7 +34,7 @@ export class AddExpenseComponent implements OnInit {
       .subscribe(_ => {
         this.onSubmit.emit(null);
         this.toggleHide.emit(null);
-      });
+      }, err => { this.errorMessages = err.error.errors; console.log(err.error.errors)});
   }
 
   toggleHideForm(): void {

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ExpenseDetail } from '../Models/ExpenseDetail';
+import { MatDialog, MatDialogConfig } from '@angular/material'
+import { EditCommentComponent } from '../edit-comment/edit-comment.component';
+
 
 @Component({
   selector: 'app-expense-detail',
@@ -13,10 +16,12 @@ export class ExpenseDetailComponent implements OnInit {
   expenseId: string;
   public GET_DETAILS_URL = 'https://localhost:5001/api/expenses/';
   public currentExpense: ExpenseDetail;
+  private errorMessages = [];
 
   constructor(
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private dialog: MatDialog
   ) { }
 
   getExpenseDetails(): void {
@@ -26,12 +31,21 @@ export class ExpenseDetailComponent implements OnInit {
 
   addComment(form: any): void {
     this.http.post(this.GET_DETAILS_URL + this.expenseId + '/comments', { text: form.value.text, important: form.value.important })
-      .subscribe(_ => { this.getExpenseDetails(); form.resetForm() });
+      .subscribe(_ => { this.getExpenseDetails(); form.resetForm() }, err => { this.errorMessages = err.error.errors; console.log(err.error.errors)});
   }
 
   deleteComment(commentId: string): void {
     this.http.delete(this.GET_DETAILS_URL + this.expenseId + '/comments/' + commentId)
       .subscribe(_ => this.getExpenseDetails());
+  }
+
+  testPopUp(comment) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true; // closes on ESC or clickng outside
+    dialogConfig.autoFocus = true;
+    // dialogConfig.width = "60%";
+    let ref = this.dialog.open(EditCommentComponent, { data: { comment: comment, expenseId: this.expenseId}});
+    ref.afterClosed().subscribe(_ => this.getExpenseDetails())
   }
 
   ngOnInit() {
