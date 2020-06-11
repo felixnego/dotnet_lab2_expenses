@@ -9,8 +9,8 @@ using dotnet_lab2_expenses.Models;
 namespace dotnet_lab2_expenses.Migrations
 {
     [DbContext(typeof(ExpenseContext))]
-    [Migration("20200516112449_initialized_comments_empty_list")]
-    partial class initialized_comments_empty_list
+    [Migration("20200610175833_ReCreatedDatabase")]
+    partial class ReCreatedDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -72,6 +72,32 @@ namespace dotnet_lab2_expenses.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ExpenseItem");
+                });
+
+            modelBuilder.Entity("dotnet_lab2_expenses.Models.User", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Username")
+                        .IsUnique();
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("dotnet_lab2_expenses.Models.Comment", b =>

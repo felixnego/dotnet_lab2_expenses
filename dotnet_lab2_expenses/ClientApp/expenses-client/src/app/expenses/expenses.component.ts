@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ExpenseSummary } from '../Models/ExpenseSummary';
+import { AuthService } from '../services/auth.service';
 import { FormGroup, FormArray, Validators, FormControl, NgForm } from '@angular/forms';
 
 @Component({
@@ -14,9 +15,12 @@ export class ExpensesComponent implements OnInit {
   public add: boolean = false;
   public GET_ALL_URL: string = 'https://localhost:5001/api/expenses';
   public DELETE_URL: string = 'https://localhost:5001/api/expenses/';
-  
+  public isLoggedIn: boolean;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private _authService: AuthService
+    ) { }
 
   /* Get list of expenses from Server */
   getExpenses(validate?: NgForm): void {
@@ -66,6 +70,7 @@ export class ExpensesComponent implements OnInit {
   
   ngOnInit() {
     this.getExpenses();
+    this.isLoggedIn = this._authService.isLoggedIn();
   }
 
 }

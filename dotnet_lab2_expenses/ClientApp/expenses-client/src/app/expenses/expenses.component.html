@@ -14,7 +14,7 @@
 
 <div>
     Click here to add a new expense report:
-    <button class="btn btn-primary" (click)="toggleAdd()">Add Expense</button>
+    <button class="btn btn-primary" (click)="toggleAdd()" [attr.disabled]="isLoggedIn == false ? true : null">Add Expense</button>
     <app-add-expense *ngIf="add" (onSubmit)="reloadData($event)" (toggleHide)="hideAddForm($event)"></app-add-expense>
 </div>
 
@@ -40,7 +40,10 @@
             <td>{{ expense.date }}</td>
             <td>{{ expense.type }}</td>
             <td>{{ expense.noComments }}</td>
-            <td><a [routerLink]="['/expenses/', expense.id]" class="btn btn-success">Details</a> <a [routerLink]="['/expenses/', expense.id, 'edit']" class="btn btn-warning">Edit</a> <a class="btn btn-danger" (click)="deleteExpense(expense.id)">Delete</a></td>
+            <td><button [routerLink]="['/expenses/', expense.id]" class="btn btn-success">Details</button> 
+                <button [routerLink]="['/expenses/', expense.id, 'edit']" class="btn btn-warning" [attr.disabled]="isLoggedIn == false ? true : null">Edit</button> 
+                <button class="btn btn-danger" (click)="deleteExpense(expense.id)" [attr.disabled]="isLoggedIn == false ? true : null">Delete</button>
+            </td>
         </tr>
     </tbody>
 </table>

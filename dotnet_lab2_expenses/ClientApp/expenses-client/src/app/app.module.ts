@@ -14,7 +14,9 @@ import { EditExpenseComponent } from './edit-expense/edit-expense.component';
 import { EditCommentComponent } from './edit-comment/edit-comment.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { AuthService } from './services/auth.service';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     ExpenseDetailComponent,
     AddExpenseComponent,
     EditExpenseComponent,
-    EditCommentComponent
+    EditCommentComponent,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     HttpClientModule,
@@ -37,11 +41,13 @@ import { MatDialogModule } from '@angular/material/dialog';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'expenses', component: ExpensesComponent },
       { path: 'expenses/:id', component: ExpenseDetailComponent },
-      { path: 'expenses/:id/edit', component: EditExpenseComponent }
+      { path: 'expenses/:id/edit', component: EditExpenseComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: 'login', component: LoginComponent }
     ], { onSameUrlNavigation: 'reload' }),
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent],
   entryComponents: [EditCommentComponent]
 })

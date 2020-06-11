@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ExpenseDetail } from '../Models/ExpenseDetail';
-import { MatDialog, MatDialogConfig } from '@angular/material'
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { AuthService } from '../services/auth.service';
 import { EditCommentComponent } from '../edit-comment/edit-comment.component';
 
 
@@ -17,10 +18,12 @@ export class ExpenseDetailComponent implements OnInit {
   public GET_DETAILS_URL = 'https://localhost:5001/api/expenses/';
   public currentExpense: ExpenseDetail;
   private errorMessages = [];
+  public isLoggedIn: boolean;
 
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
+    private _authService: AuthService,
     private dialog: MatDialog
   ) { }
 
@@ -51,6 +54,7 @@ export class ExpenseDetailComponent implements OnInit {
   ngOnInit() {
     this.expenseId = this.route.snapshot.paramMap.get('id');
     this.getExpenseDetails();
+    this.isLoggedIn = this._authService.isLoggedIn();
   }
 
 }

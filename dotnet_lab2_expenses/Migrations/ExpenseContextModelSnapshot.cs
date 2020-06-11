@@ -72,6 +72,32 @@ namespace dotnet_lab2_expenses.Migrations
                     b.ToTable("ExpenseItem");
                 });
 
+            modelBuilder.Entity("dotnet_lab2_expenses.Models.User", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Username")
+                        .IsUnique();
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("dotnet_lab2_expenses.Models.Comment", b =>
                 {
                     b.HasOne("dotnet_lab2_expenses.Models.ExpenseItem", "ExpenseItem")

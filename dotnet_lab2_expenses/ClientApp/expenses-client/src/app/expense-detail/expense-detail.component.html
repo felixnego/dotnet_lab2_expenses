@@ -27,7 +27,7 @@
                     <input class="form-check-input" type="radio" name="important" id="false" value="false" ngModel>
                     <label class="form-check-label" for="false">Not Important</label>
                 </div>
-                <button class="btn btn-primary" (click)="addComment(newCommentForm)">Add Comment</button>
+                <button class="btn btn-primary" (click)="addComment(newCommentForm)" [attr.disabled]="isLoggedIn == false ? true : null">Add Comment</button>
             </form>
         </div>
 
@@ -45,7 +45,9 @@
                     <tr *ngFor="let comment of currentExpense.comments">
                         <td>{{ comment.text }}</td>
                         <td>{{ comment.important }}</td>
-                        <td><a class="btn btn-warning" (click)="testPopUp(comment)">Edit</a> <a class="btn btn-danger" (click)="deleteComment(comment.id)">Delete</a></td>
+                        <td><button class="btn btn-warning" (click)="testPopUp(comment)" [attr.disabled]="isLoggedIn == false ? true : null">Edit</button> 
+                            <button class="btn btn-danger" (click)="deleteComment(comment.id)" [attr.disabled]="isLoggedIn == false ? true : null">Delete</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
